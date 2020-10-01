@@ -39,7 +39,24 @@ buckets.
 What is the time and space complexity of the counting sort algorithm?
 '''
 def counting_sort(arr, maximum=None):
-    # Your code here
+    if len(arr) > 0:
+        max_element=max(arr)
+        counting_arr=[0 for i in range(0,max_element + 2)]
+        for i in range(0,len(arr)):
+            for j in range(0,len(counting_arr)):
+                if arr[i] == j:
+                    counting_arr[j]+=1
+                if arr[i]<0:
+                    return ("Error, negative numbers not allowed in Count Sort")
+        result_arr=[0 for i in range(len(arr))]
+        for i in range(1,len(counting_arr)):
+            counting_arr[i]+=counting_arr[i-1]
+        for i in range(0,len(arr)):
+            order=counting_arr[arr[i]]
+            result_arr[order-1]=arr[i]
+            counting_arr[arr[i]]-=1
+        return result_arr
+    else:
+        return []
 
-
-    return arr
+counting_sort([1, 5, 8, 4, 2, 9, 6, 0, 3, 7])
